@@ -36,21 +36,20 @@ public class AuthController {
 	@PostMapping("/login")
 	public ResponseEntity<JwtResponse> login(@RequestBody JwtRequest request) {
 
-		this.doAuthenticate(request.getEmail(), request.getPassword());
+		this.doAuthenticate(request.getMobileNo(), request.getPassword());
 
-		UserDetails userDetails = userDetailsService.loadUserByUsername(request.getEmail());
+//		this.doAuthenticate(request.getEmail(), request.getUserId());
+
+		UserDetails userDetails = userDetailsService.loadUserByUsername(request.getMobileNo());
 		String token = this.helper.generateToken(userDetails);
 
-		JwtResponse response = JwtResponse.builder()
-				.jwtToken(token)
-				.username(userDetails
-						.getUsername()).build();
+		JwtResponse response = JwtResponse.builder().jwtToken(token).username(userDetails.getUsername()).build();
 		return new ResponseEntity<>(response, HttpStatus.OK);
 	}
 
-	private void doAuthenticate(String email, String password) {
+	private void doAuthenticate(String email, String userId) {
 
-		UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(email, password);
+		UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(email, userId);
 		try {
 			manager.authenticate(authentication);
 
@@ -64,4 +63,5 @@ public class AuthController {
 	public String exceptionHandler() {
 		return "Credentials Invalid !!";
 	}
+
 }

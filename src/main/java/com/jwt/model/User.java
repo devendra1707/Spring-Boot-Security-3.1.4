@@ -1,48 +1,71 @@
 package com.jwt.model;
 
-public class User {
+import java.util.Collection;
 
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@Entity
+@Table(name = "user")
+public class User implements UserDetails {
+
+	@Id
+//	@GeneratedValue(strategy = GenerationType.AUTO)
 	private String userId;
 
-	private String name;
+//	private String name;
 
-	private String email;
+//	private String email;
 
-	public String getUserId() {
-		return userId;
-	}
+	private String password;
+	
+	private String mobileNo;
 
-	public void setUserId(String userId) {
-		this.userId = userId;
-	}
-
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
-
-	public String getEmail() {
-		return email;
-	}
-
-	public void setEmail(String email) {
-		this.email = email;
-	}
-
-	public User() {
-	}
-
-	public User(String userId, String name, String email) {
-		this.userId = userId;
-		this.name = name;
-		this.email = email;
+	@Override
+	public Collection<? extends GrantedAuthority> getAuthorities() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 	@Override
-	public String toString() {
-		return "User [userId=" + userId + ", name=" + name + ", email=" + email + "]";
+	public String getUsername() {
+
+		return this.mobileNo;
+	}
+
+	@Override
+	public boolean isAccountNonExpired() {
+
+		return true;
+	}
+
+	@Override
+	public boolean isAccountNonLocked() {
+
+		return true;
+	}
+
+	@Override
+	public boolean isCredentialsNonExpired() {
+		// TODO Auto-generated method stub
+		return true;
+	}
+
+	@Override
+	public boolean isEnabled() {
+		// TODO Auto-generated method stub
+		return true;
 	}
 }

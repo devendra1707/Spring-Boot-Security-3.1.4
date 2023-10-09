@@ -2,20 +2,22 @@ package com.jwt.model;
 
 public class JwtRequest {
 
-	private String email;
+	private String mobileNo;
 
 	private String password;
 
-	public String getEmail() {
-		return email;
-	}
-
-	public void setEmail(String email) {
-		this.email = email;
-	}
+//	private String userId;
 
 	public String getPassword() {
 		return password;
+	}
+
+	public String getMobileNo() {
+		return mobileNo;
+	}
+
+	public void setMobileNo(String mobileNo) {
+		this.mobileNo = mobileNo;
 	}
 
 	public void setPassword(String password) {
@@ -25,14 +27,23 @@ public class JwtRequest {
 	public JwtRequest() {
 	}
 
-	public JwtRequest(String email, String password) {
+//	public String getUserId() {
+//		return userId;
+//	}
+//
+//	public void setUserId(String userId) {
+//		this.userId = userId;
+//	}
+
+	public JwtRequest(String mobileNo, String password) {
 		super();
-		this.email = email;
+		this.mobileNo = mobileNo;
 		this.password = password;
+//		this.userId = userId;
 	}
 
 	@Override
 	public String toString() {
-		return "JwtRequest [email=" + email + ", password=" + password + "]";
+		return "JwtRequest [email=" + mobileNo + ", password=" + password + "]";
 	}
 }
